@@ -8,11 +8,11 @@ namespace AICodingWeb.Models
         public int PurchaseOrderID { get; set; }
         public int SupplierID { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime DeliveryMethodID { get; set; }
+        public int DeliveryMethodID { get; set; }
         public int ContactPersonID { get; set; }
         public DateTime ExpectedDeliveryDate { get; set; }
         public string SupplierReference { get; set; }
-        public string IsOrderFinalized { get; set; }
+        public bool IsOrderFinalized { get; set; }
         public int LastEditedBy { get; set; }
         public DateTime LastEditedWhen { get; set; }
 

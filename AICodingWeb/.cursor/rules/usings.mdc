@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+when adding usings, I want to always list any namespaces under System first. then have a blank line. then list any namespaces under Microsoft. then have a blank line. then list any namespaces from outside of the project. then have a blank line. then list any project namespaces. then have a blank line. and within each group, I want them sorted.

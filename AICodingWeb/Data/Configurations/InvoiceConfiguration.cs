@@ -66,7 +66,7 @@ namespace AICodingWeb.Data.Configurations
                 .HasConstraintName("FK_Sales_Invoices_AccountsPersonID");
 
             builder.HasOne(d => d.BillToCustomer)
-                .WithMany(p => p.BillToCustomerInvoices)
+                .WithMany()
                 .HasForeignKey(d => d.BillToCustomerID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Sales_Invoices_BillToCustomerID");
@@ -78,7 +78,7 @@ namespace AICodingWeb.Data.Configurations
                 .HasConstraintName("FK_Sales_Invoices_ContactPersonID");
 
             builder.HasOne(d => d.Customer)
-                .WithMany(p => p.CustomerInvoices)
+                .WithMany(p => p.Invoices)
                 .HasForeignKey(d => d.CustomerID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Sales_Invoices_CustomerID");

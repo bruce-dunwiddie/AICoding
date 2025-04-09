@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Customer Service Dashboard";
+}
+
+<div class="container">
+    <h1>Customer Service Dashboard</h1>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Order Management</h5>
+                    <p class="card-text">Search and manage customer orders.</p>
+                    <a asp-action="SearchOrders" class="btn btn-primary">Search Orders</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Shipping Status</h5>
+                    <p class="card-text">View and manage shipping status of orders.</p>
+                    <a asp-controller="Shipping" asp-action="Index" class="btn btn-primary">View Shipping Status</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -45,7 +45,7 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.DeliveryMethodID).IsRequired();
             builder.Property(e => e.DeliveryCityID).IsRequired();
             builder.Property(e => e.PostalCityID).IsRequired();
-            builder.Property(e => e.CreditLimit);
+            builder.Property(e => e.CreditLimit).HasColumnType("decimal(18, 2)");
             builder.Property(e => e.AccountOpenedDate).IsRequired();
             builder.Property(e => e.StandardDiscountPercentage).HasColumnType("decimal(18, 3)").IsRequired();
             builder.Property(e => e.IsStatementSent).IsRequired();

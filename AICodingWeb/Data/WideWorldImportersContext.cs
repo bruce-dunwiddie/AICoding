@@ -1,16 +1,22 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using AICodingWeb.Models;
 using AICodingWeb.Data.Configurations;
+using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace AICodingWeb.Data
 {
-    public class WideWorldImportersContext : DbContext
+    public class WideWorldImportersContext : IdentityDbContext
     {
-        public WideWorldImportersContext(DbContextOptions<WideWorldImportersContext> options)
+        private readonly IDatabaseConnectionService _databaseConnectionService;
+
+        public WideWorldImportersContext(DbContextOptions<WideWorldImportersContext> options, IDatabaseConnectionService databaseConnectionService)
             : base(options)
         {
+            _databaseConnectionService = databaseConnectionService;
         }
 
         public DbSet<Color> Colors { get; set; }
@@ -39,8 +45,19 @@ namespace AICodingWeb.Data
         public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<SpecialDeal> SpecialDeals { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = _databaseConnectionService.GetConnectionStringAsync().GetAwaiter().GetResult();
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder); // This is important for Identity tables
+
             // Apply configurations
             modelBuilder.ApplyConfiguration(new StateProvinceConfiguration());
             modelBuilder.ApplyConfiguration(new CountryConfiguration());

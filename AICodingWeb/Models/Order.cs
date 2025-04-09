@@ -20,7 +20,7 @@ namespace AICodingWeb.Models
         public string InternalComments { get; set; }
         public DateTime? PickingCompletedWhen { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
+        public DateTime? LastEditedWhen { get; set; }
 
         public virtual Customer Customer { get; set; }
         public virtual Person SalespersonPerson { get; set; }

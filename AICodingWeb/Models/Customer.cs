@@ -46,8 +46,6 @@ namespace AICodingWeb.Models
         public virtual City PostalCity { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual ICollection<Invoice> BillToCustomerInvoices { get; set; }
-        public virtual ICollection<Invoice> CustomerInvoices { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<CustomerTransaction> CustomerTransactions { get; set; }
         public virtual ICollection<StockItemTransaction> StockItemTransactions { get; set; }

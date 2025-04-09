@@ -37,6 +37,7 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.DeliveryInstructions).HasColumnType("nvarchar(max)");
             builder.Property(e => e.InternalComments).HasColumnType("nvarchar(max)");
             builder.Property(e => e.LastEditedBy).IsRequired();
+            builder.Property(e => e.LastEditedWhen);
 
             builder.HasOne(d => d.BackorderOrder)
                 .WithMany(p => p.BackorderOrders)

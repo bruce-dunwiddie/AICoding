@@ -1,0 +1,85 @@
+@model IEnumerable<AICodingWeb.Controllers.OrderViewModel>
+
+@{
+    ViewData["Title"] = "Unshipped Orders";
+}
+
+<h1>Unshipped Orders</h1>
+
+<div class="alert alert-info">
+    Showing the 50 oldest unshipped orders. Total unshipped orders: @ViewBag.TotalOrders
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Order Date</th>
+            <th>Expected Delivery</th>
+            <th>PO Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.OrderID</td>
+                <td>@item.CustomerName</td>
+                <td>@item.OrderDate.ToShortDateString()</td>
+                <td>@item.ExpectedDeliveryDate.ToShortDateString()</td>
+                <td>@(item.CustomerPurchaseOrderNumber ?? "N/A")</td>
+                <td>
+                    <form asp-action="MarkAsShipped" asp-route-id="@item.OrderID" method="post">
+                        <button type="submit" class="btn btn-success btn-sm">Mark as Shipped</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.TotalPages > 1)
+{
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @{
+                var currentPage = ViewBag.CurrentPage;
+                var totalPages = ViewBag.TotalPages;
+                var startPage = Math.Max(1, currentPage - 2);
+                var endPage = Math.Min(totalPages, startPage + 4);
+                startPage = Math.Max(1, endPage - 4);
+            }
+
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="1" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            @for (int i = startPage; i <= endPage; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@totalPages" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+} 
