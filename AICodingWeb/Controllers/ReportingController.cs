@@ -96,17 +96,17 @@ namespace AICodingWeb.Controllers
                 var turnoverRate = await _context.StockItemTransactions
                     .Where(sit => sit.StockItemID == item.StockItemID && 
                            sit.TransactionOccurredWhen >= DateTime.Now.AddMonths(-3))
-                    .SumAsync(sit => Math.Abs(sit.Quantity)) / 3.0;
+                    .SumAsync(sit => Math.Abs(sit.Quantity)) / 3.0m;
 
                 inventoryItems.Add(new InventoryItemViewModel
                 {
                     StockItemID = item.StockItemID,
                     StockItemName = item.StockItemName,
                     Categories = categories,
-                    CurrentStock = currentStock,
+                    CurrentStock = (int)currentStock,
                     UnitPrice = item.UnitPrice,
                     TotalValue = currentStock * item.UnitPrice,
-                    TurnoverRate = turnoverRate
+                    TurnoverRate = (double)turnoverRate
                 });
             }
 

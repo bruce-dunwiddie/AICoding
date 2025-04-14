@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Order {{ order.OrderID }} - Shipping{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Order #{{ order.OrderID }}</h1>
+        <div>
+            <a href="{{ url_for('shipping.orders') }}" class="btn btn-secondary">Back to Orders</a>
+            <a href="{{ url_for('shipping.order_edit', id=order.OrderID) }}" class="btn btn-primary">Edit Order</a>
+            {% if not order.PickingCompletedWhen %}
+            <a href="{{ url_for('shipping.ship_order', id=order.OrderID) }}" class="btn btn-success">Ship Order</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Order Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Order Date:</th>
+                            <td>{{ order.OrderDate.strftime('%Y-%m-%d') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Delivery:</th>
+                            <td>{{ order.ExpectedDeliveryDate.strftime('%Y-%m-%d') if order.ExpectedDeliveryDate else 'Not set' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Customer PO Number:</th>
+                            <td>{{ order.CustomerPurchaseOrderNumber or 'Not provided' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td>
+                                {% if order.PickingCompletedWhen %}
+                                <span class="badge bg-success">Shipped on {{ order.PickingCompletedWhen.strftime('%Y-%m-%d') }}</span>
+                                {% else %}
+                                <span class="badge bg-warning">Pending</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Customer Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Customer:</th>
+                            <td>{{ order.Customer.CustomerName if order.Customer else 'Unknown' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Contact Person:</th>
+                            <td>{{ order.ContactPerson.FullName if order.ContactPerson else 'Unknown' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sales Person:</th>
+                            <td>{{ order.SalespersonPerson.FullName if order.SalespersonPerson else 'Unknown' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Order Items</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Tax Rate</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for line in order.OrderLines %}
+                        <tr>
+                            <td>{{ line.StockItemID }}</td>
+                            <td>{{ line.Description }}</td>
+                            <td>{{ line.Quantity }}</td>
+                            <td>${{ "%.2f"|format(line.UnitPrice) }}</td>
+                            <td>{{ "%.1f"|format(line.TaxRate * 100) }}%</td>
+                            <td>
+                                {% if line.PickingCompletedWhen %}
+                                <span class="badge bg-success">Picked</span>
+                                {% else %}
+                                <span class="badge bg-warning">Pending</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Comments</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Customer Comments:</strong></p>
+                    <p>{{ order.Comments or 'No comments' }}</p>
+                    
+                    <p><strong>Delivery Instructions:</strong></p>
+                    <p>{{ order.DeliveryInstructions or 'No special instructions' }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Internal Information</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Internal Comments:</strong></p>
+                    <p>{{ order.InternalComments or 'No internal comments' }}</p>
+                    
+                    <p><strong>Last Edited:</strong></p>
+                    <p>{{ order.LastEditedWhen.strftime('%Y-%m-%d %H:%M:%S') if order.LastEditedWhen else 'Unknown' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
