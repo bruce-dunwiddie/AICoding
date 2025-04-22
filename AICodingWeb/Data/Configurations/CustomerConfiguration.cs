@@ -56,7 +56,6 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.DeliveryRun).HasMaxLength(5);
             builder.Property(e => e.RunPosition).HasMaxLength(5);
             builder.Property(e => e.WebsiteURL).HasMaxLength(256).IsRequired();
-            builder.Property(e => e.DeliveryLocation).HasColumnType("geography");
             builder.Property(e => e.DeliveryAddressLine1).HasMaxLength(60).IsRequired();
             builder.Property(e => e.DeliveryAddressLine2).HasMaxLength(60);
             builder.Property(e => e.DeliveryPostalCode).HasMaxLength(10).IsRequired();

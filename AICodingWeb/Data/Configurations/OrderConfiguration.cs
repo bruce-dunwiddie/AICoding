@@ -39,7 +39,7 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.LastEditedBy).IsRequired();
 
             // Configure relationships
-            builder.HasOne<Customer>()
+            builder.HasOne(o => o.Customer)
                 .WithMany()
                 .HasForeignKey(o => o.CustomerID)
                 .OnDelete(DeleteBehavior.Restrict);

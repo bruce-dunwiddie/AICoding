@@ -20,5 +20,8 @@ namespace AICodingWeb.Models
         public string? InternalComments { get; set; }
         public DateTime? PickingCompletedWhen { get; set; }
         public int LastEditedBy { get; set; }
+
+        // Navigation property
+        public Customer? Customer { get; set; }
     }
 } 
