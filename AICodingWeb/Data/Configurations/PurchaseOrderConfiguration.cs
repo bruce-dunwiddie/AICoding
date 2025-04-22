@@ -29,23 +29,21 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.IsOrderFinalized).HasMaxLength(1).IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.ContactPerson)
-                .WithMany(p => p.ContactPersonPurchaseOrders)
-                .HasForeignKey(d => d.ContactPersonID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_PurchaseOrders_ContactPersonID");
+            // Configure relationships
+            builder.HasOne<Supplier>()
+                .WithMany()
+                .HasForeignKey(po => po.SupplierID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.DeliveryMethod)
-                .WithMany(p => p.PurchaseOrders)
-                .HasForeignKey(d => d.DeliveryMethodID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_PurchaseOrders_DeliveryMethodID");
+            builder.HasOne<DeliveryMethod>()
+                .WithMany()
+                .HasForeignKey(po => po.DeliveryMethodID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.Supplier)
-                .WithMany(p => p.PurchaseOrders)
-                .HasForeignKey(d => d.SupplierID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_PurchaseOrders_SupplierID");
+            builder.HasOne<Person>()
+                .WithMany()
+                .HasForeignKey(po => po.ContactPersonID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

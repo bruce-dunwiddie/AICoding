@@ -8,8 +8,5 @@ namespace AICodingWeb.Models
         public int StockGroupID { get; set; }
         public string StockGroupName { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual ICollection<StockItemStockGroup> StockItemStockGroups { get; set; }
     }
 } 

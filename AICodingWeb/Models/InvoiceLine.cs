@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AICodingWeb.Models
 {
@@ -10,16 +11,11 @@ namespace AICodingWeb.Models
         public string Description { get; set; }
         public int PackageTypeID { get; set; }
         public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
         public decimal TaxRate { get; set; }
         public decimal TaxAmount { get; set; }
         public decimal LineProfit { get; set; }
         public decimal ExtendedPrice { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual Invoice Invoice { get; set; }
-        public virtual StockItem StockItem { get; set; }
-        public virtual PackageType PackageType { get; set; }
     }
 } 

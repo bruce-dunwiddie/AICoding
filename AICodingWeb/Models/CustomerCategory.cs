@@ -8,9 +8,5 @@ namespace AICodingWeb.Models
         public int CustomerCategoryID { get; set; }
         public string CustomerCategoryName { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual ICollection<Customer> Customers { get; set; }
-        public virtual ICollection<SpecialDeal> SpecialDeals { get; set; }
     }
 } 

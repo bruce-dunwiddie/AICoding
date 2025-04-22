@@ -35,29 +35,26 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.FinalizationDate);
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.Customer)
-                .WithMany(p => p.CustomerTransactions)
-                .HasForeignKey(d => d.CustomerID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_CustomerTransactions_CustomerID");
+            // Configure relationships
+            builder.HasOne<Customer>()
+                .WithMany()
+                .HasForeignKey(ct => ct.CustomerID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.Invoice)
-                .WithMany(p => p.CustomerTransactions)
-                .HasForeignKey(d => d.InvoiceID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_CustomerTransactions_InvoiceID");
+            builder.HasOne<TransactionType>()
+                .WithMany()
+                .HasForeignKey(ct => ct.TransactionTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.PaymentMethod)
-                .WithMany(p => p.CustomerTransactions)
-                .HasForeignKey(d => d.PaymentMethodID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_CustomerTransactions_PaymentMethodID");
+            builder.HasOne<Invoice>()
+                .WithMany()
+                .HasForeignKey(ct => ct.InvoiceID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.TransactionType)
-                .WithMany(p => p.CustomerTransactions)
-                .HasForeignKey(d => d.TransactionTypeID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_CustomerTransactions_TransactionTypeID");
+            builder.HasOne<PaymentMethod>()
+                .WithMany()
+                .HasForeignKey(ct => ct.PaymentMethodID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

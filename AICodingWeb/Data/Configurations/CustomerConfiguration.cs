@@ -65,47 +65,46 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.PostalPostalCode).HasMaxLength(10).IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.AlternateContactPerson)
-                .WithMany(p => p.AlternateContactCustomers)
-                .HasForeignKey(d => d.AlternateContactPersonID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Customers_AlternateContactPersonID");
+            // Configure relationships
+            builder.HasOne<Customer>()
+                .WithMany()
+                .HasForeignKey(c => c.BillToCustomerID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.BillToCustomer)
-                .WithMany(p => p.Customers)
-                .HasForeignKey(d => d.BillToCustomerID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Customers_BillToCustomerID");
+            builder.HasOne<CustomerCategory>()
+                .WithMany()
+                .HasForeignKey(c => c.CustomerCategoryID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.CustomerCategory)
-                .WithMany(p => p.Customers)
-                .HasForeignKey(d => d.CustomerCategoryID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Customers_CustomerCategoryID");
+            builder.HasOne<BuyingGroup>()
+                .WithMany()
+                .HasForeignKey(c => c.BuyingGroupID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.DeliveryMethod)
-                .WithMany(p => p.Customers)
-                .HasForeignKey(d => d.DeliveryMethodID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Customers_DeliveryMethodID");
+            builder.HasOne<Person>()
+                .WithMany()
+                .HasForeignKey(c => c.PrimaryContactPersonID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.DeliveryCity)
-                .WithMany(p => p.DeliveryCustomers)
-                .HasForeignKey(d => d.DeliveryCityID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Customers_DeliveryCityID");
+            builder.HasOne<Person>()
+                .WithMany()
+                .HasForeignKey(c => c.AlternateContactPersonID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.PostalCity)
-                .WithMany(p => p.PostalCustomers)
-                .HasForeignKey(d => d.PostalCityID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Customers_PostalCityID");
+            builder.HasOne<DeliveryMethod>()
+                .WithMany()
+                .HasForeignKey(c => c.DeliveryMethodID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.PrimaryContactPerson)
-                .WithMany(p => p.PrimaryContactCustomers)
-                .HasForeignKey(d => d.PrimaryContactPersonID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Customers_PrimaryContactPersonID");
+            builder.HasOne<City>()
+                .WithMany()
+                .HasForeignKey(c => c.DeliveryCityID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne<City>()
+                .WithMany()
+                .HasForeignKey(c => c.PostalCityID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

@@ -47,29 +47,26 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.SearchDetails).HasMaxLength(1000).IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.Color)
-                .WithMany(p => p.StockItems)
-                .HasForeignKey(d => d.ColorID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItems_ColorID");
+            // Configure relationships
+            builder.HasOne<Supplier>()
+                .WithMany()
+                .HasForeignKey(si => si.SupplierID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.OuterPackage)
-                .WithMany(p => p.StockItemsWithOuterPackage)
-                .HasForeignKey(d => d.OuterPackageID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItems_OuterPackageID");
+            builder.HasOne<Color>()
+                .WithMany()
+                .HasForeignKey(si => si.ColorID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.Supplier)
-                .WithMany(p => p.StockItems)
-                .HasForeignKey(d => d.SupplierID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItems_SupplierID");
+            builder.HasOne<PackageType>()
+                .WithMany()
+                .HasForeignKey(si => si.UnitPackageID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.UnitPackage)
-                .WithMany(p => p.StockItemsWithUnitPackage)
-                .HasForeignKey(d => d.UnitPackageID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItems_UnitPackageID");
+            builder.HasOne<PackageType>()
+                .WithMany()
+                .HasForeignKey(si => si.OuterPackageID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

@@ -29,18 +29,5 @@ namespace AICodingWeb.Models
         public DateTime? ConfirmedDeliveryTime { get; set; }
         public string ConfirmedReceivedBy { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual Customer Customer { get; set; }
-        public virtual Customer BillToCustomer { get; set; }
-        public virtual Order Order { get; set; }
-        public virtual DeliveryMethod DeliveryMethod { get; set; }
-        public virtual Person ContactPerson { get; set; }
-        public virtual Person AccountsPerson { get; set; }
-        public virtual Person SalespersonPerson { get; set; }
-        public virtual Person PackedByPerson { get; set; }
-        public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
-        public virtual ICollection<StockItemTransaction> StockItemTransactions { get; set; }
-        public virtual ICollection<CustomerTransaction> CustomerTransactions { get; set; }
     }
 } 

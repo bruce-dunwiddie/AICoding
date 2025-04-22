@@ -33,29 +33,26 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.BuyingGroup)
-                .WithMany(p => p.SpecialDeals)
+            // Configure relationships
+            builder.HasOne<BuyingGroup>()
+                .WithMany()
                 .HasForeignKey(d => d.BuyingGroupID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_SpecialDeals_BuyingGroupID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.CustomerCategory)
-                .WithMany(p => p.SpecialDeals)
+            builder.HasOne<CustomerCategory>()
+                .WithMany()
                 .HasForeignKey(d => d.CustomerCategoryID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_SpecialDeals_CustomerCategoryID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.Customer)
-                .WithMany(p => p.SpecialDeals)
+            builder.HasOne<Customer>()
+                .WithMany()
                 .HasForeignKey(d => d.CustomerID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_SpecialDeals_CustomerID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.StockItem)
-                .WithMany(p => p.SpecialDeals)
+            builder.HasOne<StockItem>()
+                .WithMany()
                 .HasForeignKey(d => d.StockItemID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_SpecialDeals_StockItemID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 } 

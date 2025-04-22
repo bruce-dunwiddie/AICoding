@@ -35,29 +35,26 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.OutstandingBalance).HasColumnType("decimal(18, 2)").IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.PaymentMethod)
-                .WithMany(p => p.SupplierTransactions)
-                .HasForeignKey(d => d.PaymentMethodID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_SupplierTransactions_PaymentMethodID");
+            // Configure relationships
+            builder.HasOne<Supplier>()
+                .WithMany()
+                .HasForeignKey(st => st.SupplierID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.PurchaseOrder)
-                .WithMany(p => p.SupplierTransactions)
-                .HasForeignKey(d => d.PurchaseOrderID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_SupplierTransactions_PurchaseOrderID");
+            builder.HasOne<TransactionType>()
+                .WithMany()
+                .HasForeignKey(st => st.TransactionTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.Supplier)
-                .WithMany(p => p.SupplierTransactions)
-                .HasForeignKey(d => d.SupplierID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_SupplierTransactions_SupplierID");
+            builder.HasOne<PurchaseOrder>()
+                .WithMany()
+                .HasForeignKey(st => st.PurchaseOrderID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.TransactionType)
-                .WithMany(p => p.SupplierTransactions)
-                .HasForeignKey(d => d.TransactionTypeID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_SupplierTransactions_TransactionTypeID");
+            builder.HasOne<PaymentMethod>()
+                .WithMany()
+                .HasForeignKey(st => st.PaymentMethodID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

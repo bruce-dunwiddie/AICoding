@@ -30,23 +30,21 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.PickedQuantity);
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.Order)
-                .WithMany(p => p.OrderLines)
-                .HasForeignKey(d => d.OrderID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_OrderLines_OrderID");
+            // Configure relationships
+            builder.HasOne<Order>()
+                .WithMany()
+                .HasForeignKey(ol => ol.OrderID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.PackageType)
-                .WithMany(p => p.OrderLines)
-                .HasForeignKey(d => d.PackageTypeID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_OrderLines_PackageTypeID");
+            builder.HasOne<StockItem>()
+                .WithMany()
+                .HasForeignKey(ol => ol.StockItemID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.StockItem)
-                .WithMany(p => p.OrderLines)
-                .HasForeignKey(d => d.StockItemID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_OrderLines_StockItemID");
+            builder.HasOne<PackageType>()
+                .WithMany()
+                .HasForeignKey(ol => ol.PackageTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

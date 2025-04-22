@@ -25,11 +25,11 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.Border).HasColumnType("geography");
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.Country)
-                .WithMany(p => p.StateProvinces)
-                .HasForeignKey(d => d.CountryID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Application_StateProvinces_CountryID");
+            // Configure relationship with Country
+            builder.HasOne<Country>()
+                .WithMany()
+                .HasForeignKey(sp => sp.CountryID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

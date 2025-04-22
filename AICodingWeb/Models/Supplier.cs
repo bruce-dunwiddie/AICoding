@@ -32,7 +32,6 @@ namespace AICodingWeb.Models
         public string PostalAddressLine2 { get; set; }
         public string PostalPostalCode { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
 
         public virtual SupplierCategory SupplierCategory { get; set; }
         public virtual Person PrimaryContactPerson { get; set; }

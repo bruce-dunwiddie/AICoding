@@ -29,23 +29,21 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.ExpectedUnitPricePerOuter).HasColumnType("decimal(18, 2)").IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.PackageType)
-                .WithMany(p => p.PurchaseOrderLines)
-                .HasForeignKey(d => d.PackageTypeID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_PurchaseOrderLines_PackageTypeID");
+            // Configure relationships
+            builder.HasOne<PurchaseOrder>()
+                .WithMany()
+                .HasForeignKey(pol => pol.PurchaseOrderID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.PurchaseOrder)
-                .WithMany(p => p.PurchaseOrderLines)
-                .HasForeignKey(d => d.PurchaseOrderID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_PurchaseOrderLines_PurchaseOrderID");
+            builder.HasOne<StockItem>()
+                .WithMany()
+                .HasForeignKey(pol => pol.StockItemID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.StockItem)
-                .WithMany(p => p.PurchaseOrderLines)
-                .HasForeignKey(d => d.StockItemID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Purchasing_PurchaseOrderLines_StockItemID");
+            builder.HasOne<PackageType>()
+                .WithMany()
+                .HasForeignKey(pol => pol.PackageTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

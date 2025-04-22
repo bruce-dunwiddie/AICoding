@@ -19,7 +19,5 @@ namespace AICodingWeb.Models
         public int LastEditedBy { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
-
-        public virtual ICollection<StateProvince> StateProvinces { get; set; }
     }
 } 

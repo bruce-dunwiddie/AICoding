@@ -39,41 +39,36 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.Quantity).HasColumnType("decimal(18, 3)").IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.Customer)
-                .WithMany(p => p.StockItemTransactions)
+            // Configure relationships
+            builder.HasOne<Customer>()
+                .WithMany()
                 .HasForeignKey(d => d.CustomerID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemTransactions_CustomerID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.Invoice)
-                .WithMany(p => p.StockItemTransactions)
+            builder.HasOne<Invoice>()
+                .WithMany()
                 .HasForeignKey(d => d.InvoiceID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemTransactions_InvoiceID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.PurchaseOrder)
-                .WithMany(p => p.StockItemTransactions)
+            builder.HasOne<PurchaseOrder>()
+                .WithMany()
                 .HasForeignKey(d => d.PurchaseOrderID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemTransactions_PurchaseOrderID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.StockItem)
-                .WithMany(p => p.StockItemTransactions)
+            builder.HasOne<StockItem>()
+                .WithMany()
                 .HasForeignKey(d => d.StockItemID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemTransactions_StockItemID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.Supplier)
-                .WithMany(p => p.StockItemTransactions)
+            builder.HasOne<Supplier>()
+                .WithMany()
                 .HasForeignKey(d => d.SupplierID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemTransactions_SupplierID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(d => d.TransactionType)
-                .WithMany(p => p.StockItemTransactions)
+            builder.HasOne<TransactionType>()
+                .WithMany()
                 .HasForeignKey(d => d.TransactionTypeID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemTransactions_TransactionTypeID");
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 } 

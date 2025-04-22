@@ -17,11 +17,6 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.ColorID).ValueGeneratedNever();
             builder.Property(e => e.ColorName).HasMaxLength(20).IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
-
-            builder.HasMany(c => c.StockItems)
-                .WithOne(si => si.Color)
-                .HasForeignKey(si => si.ColorID)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AICodingWeb.Models
 {
@@ -17,11 +18,5 @@ namespace AICodingWeb.Models
         public DateTime? FinalizationDate { get; set; }
         public bool IsFinalized { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual Customer Customer { get; set; }
-        public virtual TransactionType TransactionType { get; set; }
-        public virtual Invoice Invoice { get; set; }
-        public virtual PaymentMethod PaymentMethod { get; set; }
     }
 } 

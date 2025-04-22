@@ -17,11 +17,6 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.StockGroupID).ValueGeneratedNever();
             builder.Property(e => e.StockGroupName).HasMaxLength(50).IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
-
-            builder.HasMany(sg => sg.StockItemStockGroups)
-                .WithOne(sisg => sisg.StockGroup)
-                .HasForeignKey(sisg => sisg.StockGroupID)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 } 

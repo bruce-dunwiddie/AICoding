@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AICodingWeb.Models
 {
@@ -16,12 +17,7 @@ namespace AICodingWeb.Models
         public decimal TransactionAmount { get; set; }
         public decimal OutstandingBalance { get; set; }
         public DateTime? FinalizationDate { get; set; }
+        public bool IsFinalized { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual Supplier Supplier { get; set; }
-        public virtual TransactionType TransactionType { get; set; }
-        public virtual PurchaseOrder PurchaseOrder { get; set; }
-        public virtual PaymentMethod PaymentMethod { get; set; }
     }
 } 

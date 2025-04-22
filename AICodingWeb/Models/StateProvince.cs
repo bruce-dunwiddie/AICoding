@@ -13,9 +13,5 @@ namespace AICodingWeb.Models
         public string Border { get; set; }
         public long? LatestRecordedPopulation { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual Country Country { get; set; }
-        public virtual ICollection<City> Cities { get; set; }
     }
 } 

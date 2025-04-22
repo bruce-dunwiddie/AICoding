@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AICodingWeb.Models
 {
@@ -8,9 +9,5 @@ namespace AICodingWeb.Models
         public int StockItemID { get; set; }
         public int StockGroupID { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual StockItem StockItem { get; set; }
-        public virtual StockGroup StockGroup { get; set; }
     }
 } 

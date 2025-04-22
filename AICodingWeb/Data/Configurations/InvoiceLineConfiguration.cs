@@ -42,18 +42,20 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(il => il.LastEditedBy)
                 .IsRequired();
 
-            builder.Property(il => il.LastEditedWhen)
-                .IsRequired();
-
-            // Relationships
-            builder.HasOne(il => il.Invoice)
-                .WithMany(i => i.InvoiceLines)
+            // Configure relationships
+            builder.HasOne<Invoice>()
+                .WithMany()
                 .HasForeignKey(il => il.InvoiceID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(il => il.StockItem)
-                .WithMany(si => si.InvoiceLines)
+            builder.HasOne<StockItem>()
+                .WithMany()
                 .HasForeignKey(il => il.StockItemID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne<PackageType>()
+                .WithMany()
+                .HasForeignKey(il => il.PackageTypeID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

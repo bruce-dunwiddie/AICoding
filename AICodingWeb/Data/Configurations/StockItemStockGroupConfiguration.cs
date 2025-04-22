@@ -21,17 +21,16 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.StockGroupID).IsRequired();
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.StockGroup)
-                .WithMany(p => p.StockItemStockGroups)
-                .HasForeignKey(d => d.StockGroupID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemStockGroups_StockGroupID");
+            // Configure relationships
+            builder.HasOne<StockItem>()
+                .WithMany()
+                .HasForeignKey(sisg => sisg.StockItemID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.StockItem)
-                .WithMany(p => p.StockItemStockGroups)
-                .HasForeignKey(d => d.StockItemID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Warehouse_StockItemStockGroups_StockItemID");
+            builder.HasOne<StockGroup>()
+                .WithMany()
+                .HasForeignKey(sisg => sisg.StockGroupID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

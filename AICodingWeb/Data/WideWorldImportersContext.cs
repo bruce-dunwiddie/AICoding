@@ -41,6 +41,8 @@ namespace AICodingWeb.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // Apply configurations
             modelBuilder.ApplyConfiguration(new StateProvinceConfiguration());
             modelBuilder.ApplyConfiguration(new CountryConfiguration());

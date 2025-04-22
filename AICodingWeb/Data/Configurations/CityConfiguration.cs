@@ -21,11 +21,11 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.LatestRecordedPopulation);
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.StateProvince)
-                .WithMany(p => p.Cities)
-                .HasForeignKey(d => d.StateProvinceID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Application_Cities_StateProvinceID");
+            // Configure relationship with StateProvince
+            builder.HasOne<StateProvince>()
+                .WithMany()
+                .HasForeignKey(c => c.StateProvinceID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

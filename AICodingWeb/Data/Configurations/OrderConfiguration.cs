@@ -38,35 +38,31 @@ namespace AICodingWeb.Data.Configurations
             builder.Property(e => e.InternalComments).HasColumnType("nvarchar(max)");
             builder.Property(e => e.LastEditedBy).IsRequired();
 
-            builder.HasOne(d => d.BackorderOrder)
-                .WithMany(p => p.BackorderOrders)
-                .HasForeignKey(d => d.BackorderOrderID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Orders_BackorderOrderID");
-
-            builder.HasOne(d => d.ContactPerson)
+            // Configure relationships
+            builder.HasOne<Customer>()
                 .WithMany()
-                .HasForeignKey(d => d.ContactPersonID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Orders_ContactPersonID");
+                .HasForeignKey(o => o.CustomerID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.Customer)
-                .WithMany(p => p.Orders)
-                .HasForeignKey(d => d.CustomerID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Orders_CustomerID");
+            builder.HasOne<Person>()
+                .WithMany()
+                .HasForeignKey(o => o.SalespersonPersonID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.PickedByPerson)
-                .WithMany(p => p.PickedByOrders)
-                .HasForeignKey(d => d.PickedByPersonID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Orders_PickedByPersonID");
+            builder.HasOne<Person>()
+                .WithMany()
+                .HasForeignKey(o => o.PickedByPersonID)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.SalespersonPerson)
-                .WithMany(p => p.SalespersonOrders)
-                .HasForeignKey(d => d.SalespersonPersonID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Sales_Orders_SalespersonPersonID");
+            builder.HasOne<Person>()
+                .WithMany()
+                .HasForeignKey(o => o.ContactPersonID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne<Order>()
+                .WithMany()
+                .HasForeignKey(o => o.BackorderOrderID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

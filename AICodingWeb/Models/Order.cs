@@ -20,15 +20,5 @@ namespace AICodingWeb.Models
         public string InternalComments { get; set; }
         public DateTime? PickingCompletedWhen { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual Customer Customer { get; set; }
-        public virtual Person SalespersonPerson { get; set; }
-        public virtual Person PickedByPerson { get; set; }
-        public virtual Person ContactPerson { get; set; }
-        public virtual Order BackorderOrder { get; set; }
-        public virtual ICollection<Order> BackorderOrders { get; set; }
-        public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual ICollection<OrderLine> OrderLines { get; set; }
     }
 } 

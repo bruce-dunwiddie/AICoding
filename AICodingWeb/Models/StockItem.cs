@@ -28,17 +28,5 @@ namespace AICodingWeb.Models
         public string Tags { get; set; }
         public string SearchDetails { get; set; }
         public int LastEditedBy { get; set; }
-        public DateTime LastEditedWhen { get; set; }
-
-        public virtual Supplier Supplier { get; set; }
-        public virtual Color Color { get; set; }
-        public virtual PackageType UnitPackage { get; set; }
-        public virtual PackageType OuterPackage { get; set; }
-        public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
-        public virtual ICollection<OrderLine> OrderLines { get; set; }
-        public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; set; }
-        public virtual ICollection<SpecialDeal> SpecialDeals { get; set; }
-        public virtual ICollection<StockItemStockGroup> StockItemStockGroups { get; set; }
-        public virtual ICollection<StockItemTransaction> StockItemTransactions { get; set; }
     }
 } 
