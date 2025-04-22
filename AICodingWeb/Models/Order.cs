@@ -13,11 +13,11 @@ namespace AICodingWeb.Models
         public int? BackorderOrderID { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ExpectedDeliveryDate { get; set; }
-        public string CustomerPurchaseOrderNumber { get; set; }
+        public string? CustomerPurchaseOrderNumber { get; set; }
         public bool IsUndersupplyBackordered { get; set; }
-        public string Comments { get; set; }
-        public string DeliveryInstructions { get; set; }
-        public string InternalComments { get; set; }
+        public string? Comments { get; set; }
+        public string? DeliveryInstructions { get; set; }
+        public string? InternalComments { get; set; }
         public DateTime? PickingCompletedWhen { get; set; }
         public int LastEditedBy { get; set; }
     }

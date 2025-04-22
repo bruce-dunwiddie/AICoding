@@ -11,7 +11,7 @@ namespace AICodingWeb.Models
         public int PackageTypeID { get; set; }
         public int OrderedOuters { get; set; }
         public string Description { get; set; }
-        public DateTime ExpectedUnitPricePerOuter { get; set; }
+        public decimal ExpectedUnitPricePerOuter { get; set; }
         public decimal? ReceivedOuters { get; set; }
         public string PackageTypeName { get; set; }
         public int LastEditedBy { get; set; }
